@@ -13,6 +13,10 @@
 - (void)start
 {
     NSURL* url = [NSURL URLWithString:self.url];
+    
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 @end
