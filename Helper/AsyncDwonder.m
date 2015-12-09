@@ -12,7 +12,7 @@
 
 - (void)start
 {
-    
+    NSURL* url = [NSURL URLWithString:self.url];
 }
 
 @end
