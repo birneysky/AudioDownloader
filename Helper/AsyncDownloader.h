@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface AsyncDownloader : NSObject
+@interface AsyncDownloader : NSObject <NSCopying>
+
+@property (nonatomic,readonly) double totoalContentLength;
+
+@property (nonatomic,readonly) long long loadedContentLength;
 
 - (instancetype)initWithUrl:(NSString*)url;
 

@@ -67,6 +67,7 @@
 		74EE84161C01B73D0009D7C8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		74EE84171C01B73D0009D7C8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		DBFB26031C19522400225D61 /* AudioDownloader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDownloader.pch; sourceTree = "<group>"; };
+		DBFB26051C19756500225D61 /* NotificationNameMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationNameMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +118,7 @@
 		74EE83C91BFE15720009D7C8 /* AudioDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				DBFB26041C19754500225D61 /* Macros */,
 				74EE84071BFE21A00009D7C8 /* Sections */,
 				74EE84031BFE20AE0009D7C8 /* Helper */,
 				74EE83D31BFE15720009D7C8 /* Main.storyboard */,
@@ -214,6 +216,14 @@
 			);
 			path = Views;
 			sourceTree = "<group>";
+		};
+		DBFB26041C19754500225D61 /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				DBFB26051C19756500225D61 /* NotificationNameMacro.h */,
+			);
+			path = Macros;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

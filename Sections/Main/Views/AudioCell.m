@@ -10,4 +10,18 @@
 
 @implementation AudioCell
 
+- (void)awakeFromNib
+{
+    self.processView.progress = 600;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+     DebugLog(@" self frame = %@",NSStringFromCGRect(self.frame));
+    CGRect rect = self.frame;
+    self.processView.frame = CGRectMake(0, 2, rect.size.width, 2);
+    DebugLog(@" process =  %@",NSStringFromCGRect(self.processView.frame));
+}
+
 @end

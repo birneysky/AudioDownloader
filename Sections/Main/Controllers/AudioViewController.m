@@ -17,9 +17,17 @@
 @property (strong, nonatomic) NSMutableArray* dataSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshBtnItem;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
+
+@property (nonatomic,strong) NSMutableDictionary* processManager;
+
+
 @end
 
 @implementation AudioViewController
+{
+@private
+    CGFloat processValue[1024];
+}
 
 #pragma mark - *** Properties ***
 - (NSMutableArray*)dataSource
@@ -30,11 +38,30 @@
     return _dataSource;
 }
 
+- (NSMutableDictionary*)processManager
+{
+    if (!_processManager) {
+        _processManager = [[NSMutableDictionary alloc] init];
+    }
+    return _processManager;
+}
+
+
 #pragma mark - *** Initializers ***
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.indicator.hidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProcess:) name:NB_UPDATEDOWNLOADPROCESS object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,9 +136,12 @@
     NSDictionary* dic = [self.dataSource[indexPath.row] objectForKey:@"enclosure"];
     NSString* url = [dic objectForKey:@"url"];
     
+    
     AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:url];
     
     [downLoader start];
+    
+    [self.processManager setObject:indexPath forKey:downLoader];
     
 }
 
@@ -135,7 +165,23 @@
     return NO;
 }
 
+#pragma mark - *** notification selector ***
+- (void)updateProcess:(NSNotification*)notification
+{
+    AsyncDownloader* loader = notification.object;
+    NSIndexPath* indexPath = self.processManager[loader];
+    AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
+    DebugLog(@"process %f" ,process);
+    [cell.processView setProgress:process animated:YES];
+    processValue[indexPath.row] = process;
+    //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//
+//    });
+    
+    
+}
 
 @end

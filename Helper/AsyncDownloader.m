@@ -10,9 +10,12 @@
 
 @interface AsyncDownloader ()<NSURLConnectionDataDelegate>
 
-@property(nonatomic,strong) NSURLConnection* connection;
 
 @property (nonatomic,copy) NSString* url;
+
+@property (nonatomic,assign) double totoalContentLength;
+
+@property (nonatomic,assign) long long loadedContentLength;
 
 @end
 
@@ -35,12 +38,17 @@
 - (void)start
 {
     NSURL* url = [NSURL URLWithString:self.url];
-    
+        
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    
-    self.connection =  [NSURLConnection connectionWithRequest:request delegate:self];
+        //发送异步请求
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
+#pragma mark - *** NSCopying **
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
 
 #pragma mark - *** NSURLConnectionDataDelegate **
 /*出错*/
@@ -52,7 +60,9 @@
 /*分片返回数据*/
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    DebugLog(@" data length %lu",data.length);
+    self.loadedContentLength += data.length;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NB_UPDATEDOWNLOADPROCESS object:self];
+    DebugLog(@" data length %lu loadedContentLength %lld",data.length,self.loadedContentLength);
 }
 
 /*当下载对象载入充分足够数据时，返回NSURLResponse对象
@@ -60,6 +70,12 @@
  这时应该处理或者丢弃由 connection:didReceiveData:投递的数据*/
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    if ([response isMemberOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        self.totoalContentLength = [[[httpResponse allHeaderFields] objectForKey:@"Content-Length"] longLongValue];
+        self.loadedContentLength = 0;
+    }
+    
     
     DebugLog(@"response %@",response);
 }
