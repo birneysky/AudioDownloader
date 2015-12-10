@@ -156,7 +156,6 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    NSLog(@" shouldPerformSegueWithIdentifier %@",identifier);
     return NO;
 }
 
@@ -168,8 +167,8 @@
         NSIndexPath* indexPath = self.processManager[loader];
         AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
         CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
-        DebugLog(@"process %f" ,process);
         cell.processView.progress = process;
+        //[cell.processView setProgress:process animated:YES];
     });
     
     
