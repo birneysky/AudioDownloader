@@ -27,6 +27,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    TRACE();
+}
+
 - (void)start
 {
     NSURL* url = [NSURL URLWithString:self.url];
