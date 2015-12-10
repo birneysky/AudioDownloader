@@ -8,6 +8,12 @@
 
 #import "AsyncDwonder.h"
 
+@interface AsyncDwonder ()
+
+@property(nonatomic,strong) NSURLConnection* connection;
+
+@end
+
 @implementation AsyncDwonder
 
 - (void)start
@@ -16,7 +22,7 @@
     
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     
-    [NSURLConnection connectionWithRequest:request delegate:self];
+    self.connection =  [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 @end
