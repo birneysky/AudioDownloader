@@ -20,14 +20,9 @@
 
 @property (nonatomic,strong) NSMutableDictionary* processManager;
 
-
 @end
 
 @implementation AudioViewController
-{
-@private
-    CGFloat processValue[1024];
-}
 
 #pragma mark - *** Properties ***
 - (NSMutableArray*)dataSource
@@ -168,18 +163,14 @@
 #pragma mark - *** notification selector ***
 - (void)updateProcess:(NSNotification*)notification
 {
-    AsyncDownloader* loader = notification.object;
-    NSIndexPath* indexPath = self.processManager[loader];
-    AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
-    DebugLog(@"process %f" ,process);
-    [cell.processView setProgress:process animated:YES];
-    processValue[indexPath.row] = process;
-    //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AsyncDownloader* loader = notification.object;
+        NSIndexPath* indexPath = self.processManager[loader];
+        AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
+        DebugLog(@"process %f" ,process);
+        cell.processView.progress = process;
+    });
     
     
 }
