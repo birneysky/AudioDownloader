@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface AsyncDwonder : NSObject
+@interface AsyncDownloader : NSObject
 
-@property (nonatomic,copy) NSString* url;
+- (instancetype)initWithUrl:(NSString*)url;
 
 - (void)start;
 

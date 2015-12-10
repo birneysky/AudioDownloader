@@ -6,15 +6,26 @@
 //  Copyright © 2015年 birneysky. All rights reserved.
 //
 
-#import "AsyncDwonder.h"
+#import "AsyncDownloader.h"
 
-@interface AsyncDwonder ()<NSURLConnectionDataDelegate>
+@interface AsyncDownloader ()<NSURLConnectionDataDelegate>
 
 @property(nonatomic,strong) NSURLConnection* connection;
 
+@property (nonatomic,copy) NSString* url;
+
 @end
 
-@implementation AsyncDwonder
+@implementation AsyncDownloader
+
+#pragma mark - *** public Api ***
+- (instancetype)initWithUrl:(NSString *)url
+{
+    if (self = [super init]) {
+        self.url = url;
+    }
+    return self;
+}
 
 - (void)start
 {
@@ -25,15 +36,18 @@
     self.connection =  [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
+
+#pragma mark - *** NSURLConnectionDataDelegate **
 /*出错*/
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    
+    DebugLog(@"error %@",error);
 }
 
 /*分片返回数据*/
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    DebugLog(@" data length %lu",data.length);
 }
 
 /*当下载对象载入充分足够数据时，返回NSURLResponse对象
@@ -48,7 +62,7 @@
 /*成功载入数据后，完成*/
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    
+    TRACE();
 }
 
 @end

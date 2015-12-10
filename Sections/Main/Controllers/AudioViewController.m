@@ -10,6 +10,7 @@
 #import "FeedLoader.h"
 #import "AudioCell.h"
 #import "DetailViewController.h"
+#import "AsyncDownloader.h"
 
 @interface AudioViewController () <FeedLoaderDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -104,6 +105,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary* dic = [self.dataSource[indexPath.row] objectForKey:@"enclosure"];
+    NSString* url = [dic objectForKey:@"url"];
+    
+    AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:url];
+    
+    [downLoader start];
+    
 }
 
 
