@@ -34,7 +34,6 @@
 /*分片返回数据*/
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    
 }
 
 /*当下载对象载入充分足够数据时，返回NSURLResponse对象
@@ -43,6 +42,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     
+    DebugLog(@"response %@",response);
 }
 
 /*成功载入数据后，完成*/

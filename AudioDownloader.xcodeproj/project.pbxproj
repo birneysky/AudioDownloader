@@ -66,6 +66,7 @@
 		74EE84131BFE21B80009D7C8 /* FeedLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedLoader.m; sourceTree = "<group>"; };
 		74EE84161C01B73D0009D7C8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		74EE84171C01B73D0009D7C8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		DBFB26031C19522400225D61 /* AudioDownloader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDownloader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +134,7 @@
 				74EE83CB1BFE15720009D7C8 /* main.m */,
 				74EE83CD1BFE15720009D7C8 /* AppDelegate.h */,
 				74EE83CE1BFE15720009D7C8 /* AppDelegate.m */,
+				DBFB26031C19522400225D61 /* AudioDownloader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -491,6 +493,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = AudioDownloader/AudioDownloader.pch;
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -503,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = AudioDownloader/AudioDownloader.pch;
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
