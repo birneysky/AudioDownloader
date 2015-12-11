@@ -20,6 +20,7 @@
 		74EE84111BFE21A00009D7C8 /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE840F1BFE21A00009D7C8 /* AudioCell.m */; };
 		74EE84141BFE21B80009D7C8 /* FeedLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE84131BFE21B80009D7C8 /* FeedLoader.m */; };
 		74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE84171C01B73D0009D7C8 /* DetailViewController.m */; };
+		DB1EC42A1C1A78D100AB7AD8 /* ItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1EC4291C1A78D100AB7AD8 /* ItemInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		74EE84131BFE21B80009D7C8 /* FeedLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedLoader.m; sourceTree = "<group>"; };
 		74EE84161C01B73D0009D7C8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		74EE84171C01B73D0009D7C8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		DB1EC4281C1A78D100AB7AD8 /* ItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInfo.h; sourceTree = "<group>"; };
+		DB1EC4291C1A78D100AB7AD8 /* ItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInfo.m; sourceTree = "<group>"; };
 		DBFB26031C19522400225D61 /* AudioDownloader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDownloader.pch; sourceTree = "<group>"; };
 		DBFB26051C19756500225D61 /* NotificationNameMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationNameMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,8 +186,8 @@
 		74EE84081BFE21A00009D7C8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				DB1EC4271C1A77BD00AB7AD8 /* Models */,
 				74EE84091BFE21A00009D7C8 /* Controllers */,
-				74EE840C1BFE21A00009D7C8 /* Models */,
 				74EE840D1BFE21A00009D7C8 /* Views */,
 			);
 			path = Main;
@@ -201,13 +204,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		74EE840C1BFE21A00009D7C8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		74EE840D1BFE21A00009D7C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +211,15 @@
 				74EE840F1BFE21A00009D7C8 /* AudioCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DB1EC4271C1A77BD00AB7AD8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB1EC4281C1A78D100AB7AD8 /* ItemInfo.h */,
+				DB1EC4291C1A78D100AB7AD8 /* ItemInfo.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		DBFB26041C19754500225D61 /* Macros */ = {
@@ -361,6 +366,7 @@
 				74EE84101BFE21A00009D7C8 /* AudioViewController.m in Sources */,
 				74EE84061BFE20AE0009D7C8 /* XMLReader.m in Sources */,
 				74EE84141BFE21B80009D7C8 /* FeedLoader.m in Sources */,
+				DB1EC42A1C1A78D100AB7AD8 /* ItemInfo.m in Sources */,
 				74EE83CC1BFE15720009D7C8 /* main.m in Sources */,
 				74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */,
 			);

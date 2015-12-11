@@ -11,6 +11,7 @@
 #import "AudioCell.h"
 #import "DetailViewController.h"
 #import "AsyncDownloader.h"
+#import "ItemInfo.h"
 
 @interface AudioViewController () <FeedLoaderDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -70,7 +71,18 @@
     self.refreshBtnItem.enabled = YES;
     [self.indicator stopAnimating];
     self.indicator.hidden = YES;
-    [self.dataSource addObjectsFromArray:array];
+    for (NSDictionary* dic in array) {
+        ItemInfo* info = [[ItemInfo alloc] init];
+        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        
+        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        
+        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
+        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
+        [self.dataSource addObject:info];
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -108,10 +120,11 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AudioCell* cell = [tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
-
-    
-    cell.textLabel.text = [[[self.dataSource[indexPath.row] objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-    cell.detailTextLabel.text = [[[self.dataSource[indexPath.row] objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+    ItemInfo* info = self.dataSource[indexPath.row];
+    cell.textLabel.text = info.title;
+    cell.detailTextLabel.text = info.keywords;
+    cell.processView.progress = info.progress;
+    DebugLog(@"cell process = %f",info.progress);
     return cell;
 }
 
@@ -128,11 +141,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary* dic = [self.dataSource[indexPath.row] objectForKey:@"enclosure"];
-    NSString* url = [dic objectForKey:@"url"];
+    ItemInfo* info = self.dataSource[indexPath.row];
     
     
-    AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:url];
+    AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:info.url];
     
     [downLoader start];
     
@@ -148,7 +160,8 @@
     if ([segue.identifier isEqualToString:@"showDetail"]) {
         DetailViewController* dc = segue.destinationViewController;
         NSIndexPath* path = sender;
-        dc.detailText = [[[self.dataSource[path.row] objectForKey:@"itunes:subtitle"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        ItemInfo* info = self.dataSource[path.row];
+        dc.detailText = info.summary;
 
     }
     
@@ -165,10 +178,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         AsyncDownloader* loader = notification.object;
         NSIndexPath* indexPath = self.processManager[loader];
-        AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        //AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
         CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
-        cell.processView.progress = process;
-        //[cell.processView setProgress:process animated:YES];
+        ItemInfo* info = self.dataSource[indexPath.row];
+        info.progress = process;
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        //cell.processView.progress = process;
     });
     
     
