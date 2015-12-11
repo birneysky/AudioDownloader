@@ -178,12 +178,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         AsyncDownloader* loader = notification.object;
         NSIndexPath* indexPath = self.processManager[loader];
-        //AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
         CGFloat process = loader.loadedContentLength / loader.totoalContentLength;
         ItemInfo* info = self.dataSource[indexPath.row];
         info.progress = process;
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        //cell.processView.progress = process;
+        //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        cell.processView.progress = process;
     });
     
     
