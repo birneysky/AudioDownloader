@@ -14,8 +14,8 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #ifdef DEBUG
-#define DebugLog(fmt,...) NSLog(@"%s %d %s "fmt,__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__)
-#define TRACE() NSLog(@"%s %d %s ",__FILE__,__LINE__,__FUNCTION__)
+#define DebugLog(fmt,...) NSLog(@"%s %d"fmt,__FUNCTION__,__LINE__,__VA_ARGS__)
+#define TRACE() NSLog(@"%s %d",__FUNCTION__,__LINE__)
 #else
 #define DebugLog(fmt,...)
 #define TRACE()
