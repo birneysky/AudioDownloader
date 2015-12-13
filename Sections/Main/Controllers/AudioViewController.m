@@ -124,7 +124,6 @@
     cell.textLabel.text = info.title;
     cell.detailTextLabel.text = info.keywords;
     cell.processView.progress = info.progress;
-    DebugLog(@"cell process = %f",info.progress);
     return cell;
 }
 
@@ -145,10 +144,12 @@
     
     
     AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:info.url];
+    [self.processManager setObject:indexPath forKey:downLoader];
+    
     
     [downLoader start];
     
-    [self.processManager setObject:indexPath forKey:downLoader];
+
     
 }
 
