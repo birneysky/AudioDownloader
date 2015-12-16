@@ -109,6 +109,14 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - *** Helper ***
+- (void)configureCell:(AudioCell*)cell item:(ItemInfo*)item
+{
+    cell.text = item.title;
+    cell.detailText = item.keywords;
+    cell.progress = item.progress;
+}
+
 
 #pragma mark - *** TableView Data Source ***
 
@@ -121,9 +129,9 @@
 {
     AudioCell* cell = [tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
     ItemInfo* info = self.dataSource[indexPath.row];
-    cell.textLabel.text = info.title;
-    cell.detailTextLabel.text = info.keywords;
-    cell.processView.progress = info.progress;
+    cell.text = info.title;
+    cell.detailText = info.keywords;
+    cell.progress = info.progress;
     return cell;
 }
 
@@ -184,7 +192,7 @@
         ItemInfo* info = self.dataSource[indexPath.row];
         info.progress = process;
         //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        cell.processView.progress = process;
+        cell.progress = process;
     });
     
     

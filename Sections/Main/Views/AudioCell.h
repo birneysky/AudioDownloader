@@ -10,6 +10,10 @@
 
 @interface AudioCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIProgressView *processView;
+@property (nonatomic,copy) NSString* text;
+
+@property (nonatomic,copy) NSString* detailText;
+
+@property (nonatomic,assign) CGFloat progress;
 
 @end
