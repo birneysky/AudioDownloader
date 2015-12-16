@@ -23,15 +23,7 @@
     self.progressView.frame = CGRectMake(0, rect.size.height - 2, rect.size.width, 2);
 }
 
-- (void)setText:(NSString *)text
-{
-    self.textLabel.text = text;
-}
 
-- (void)setDetailText:(NSString *)detailText
-{
-    self.detailTextLabel.text = detailText;
-}
 
 - (void)setProgress:(CGFloat)progress
 {

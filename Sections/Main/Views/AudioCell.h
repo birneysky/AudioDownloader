@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeneralCell.h"
 
-@interface AudioCell : UITableViewCell
-
-@property (nonatomic,copy) NSString* text;
-
-@property (nonatomic,copy) NSString* detailText;
+@interface AudioCell : GeneralCell
 
 @property (nonatomic,assign) CGFloat progress;
 

@@ -7,7 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol GeneralCell <NSObject>
+
+@property (nonatomic,copy) NSString* text;
+
+@property (nonatomic,copy) NSString* detailText;
+
+@end
+
+
+@interface GeneralCell : UITableViewCell  <GeneralCell>
+
+@property (nonatomic,copy) NSString* text;
+
+@property (nonatomic,copy) NSString* detailText;
 
 @end
