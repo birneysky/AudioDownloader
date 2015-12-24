@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeneralCell.h"
 
-@interface AudioCell : UITableViewCell
+@interface AudioCell : GeneralCell
 
-@property (weak, nonatomic) IBOutlet UIProgressView *processView;
+@property (nonatomic,assign) CGFloat progress;
 
 @end

@@ -8,6 +8,11 @@
 
 #import "AudioCell.h"
 
+@interface AudioCell ()
+@property (weak, nonatomic) IBOutlet UIProgressView* progressView;
+
+@end
+
 @implementation AudioCell
 
 
@@ -15,7 +20,15 @@
 {
     [super layoutSubviews];
     CGRect rect = self.frame;
-    self.processView.frame = CGRectMake(0, rect.size.height - 2, rect.size.width, 2);
+    self.progressView.frame = CGRectMake(0, rect.size.height - 2, rect.size.width, 2);
 }
+
+
+
+- (void)setProgress:(CGFloat)progress
+{
+    self.progressView.progress = progress;
+}
+
 
 @end
