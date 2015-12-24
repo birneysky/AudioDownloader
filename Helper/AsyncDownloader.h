@@ -15,6 +15,8 @@
 
 @property (nonatomic,readonly) long long loadedContentLength;
 
+@property (nonatomic,readonly) BOOL isActive;
+
 - (instancetype)initWithUrl:(NSString*)url;
 
 - (void)start;
