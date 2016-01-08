@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) NSMutableDictionary* processManager;
 
+@property (nonatomic,strong) UISearchController* searchController;
+
 @end
 
 @implementation AudioViewController
@@ -42,12 +44,22 @@
     return _processManager;
 }
 
+- (UISearchController*)searchController
+{
+    if (!_searchController) {
+        _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    }
+    return _searchController;
+}
+
 
 #pragma mark - *** Initializers ***
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.indicator.hidden = YES;
+    self.searchController.searchBar.barTintColor = RGB(217, 217, 217);
+    self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 - (void)viewWillAppear:(BOOL)animated

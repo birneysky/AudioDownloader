@@ -15,6 +15,16 @@
 
 @implementation DetailViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.title = @"Details Infomation";
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.title = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
