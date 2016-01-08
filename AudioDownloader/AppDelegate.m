@@ -18,8 +18,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-
-    
+    //NSMutableArray* array = [[NSMutableArray alloc] init];
+    //objc_msgSend(array,@selector(count));
     return YES;
 }
 

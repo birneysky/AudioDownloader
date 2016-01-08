@@ -56,7 +56,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentify];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentify forIndexPath:indexPath];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:self.cellIdentify];

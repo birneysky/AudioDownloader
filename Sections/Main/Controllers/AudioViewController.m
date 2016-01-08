@@ -71,17 +71,19 @@
     self.refreshBtnItem.enabled = YES;
     [self.indicator stopAnimating];
     self.indicator.hidden = YES;
-    for (NSDictionary* dic in array) {
-        ItemInfo* info = [[ItemInfo alloc] init];
-        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        
-        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        
-        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
-        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
-        [self.dataSource addObject:info];
-    }
+//    for (NSDictionary* dic in array) {
+//        ItemInfo* info = [[ItemInfo alloc] init];
+//        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        
+//        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        
+//        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
+//        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
+//        [self.dataSource addObject:info];
+//    }
+    
+    [self.dataSource addObjectsFromArray:array];
     
     [self.tableView reloadData];
 }
