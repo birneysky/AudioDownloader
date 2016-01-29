@@ -250,6 +250,7 @@
 				74EE83C31BFE15720009D7C8 /* Sources */,
 				74EE83C41BFE15720009D7C8 /* Frameworks */,
 				74EE83C51BFE15720009D7C8 /* Resources */,
+				DB88E0FA1C58A8D800EBDC19 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -365,6 +366,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DB88E0FA1C58A8D800EBDC19 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#echo \"hello world\"\n# app file path\necho \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\necho \"${PROVISONNING_PROFILE}\"\n# project path\necho \"${SRCROOT}\"\n# find app icon path\necho $(find ${SRCROOT} -name \"AppIcon60x60@2x.png\")\n#IFS=$'\\n'\n#PATH=${PATH}:/usr/local/bin\n\nTARGET_PATH=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nBASE_IMAGE_PATH=$(find ${SRCROOT} -name \"AppIcon60x60@2x.png\")\nconvert betaRibbon.png -resize 120x120 resizeBetaRibbon.png\nconvert ${BASE_IMAGE_PATH} -fill white -font Times-Bold -pointsize 18 -gravity south -annotate 0 \"hello World\" temp.png\ncomposite resizeBetaRibbon.png temp.png ${TARGET_PATH}AppIcon60x60@2x.png\nrm temp.png";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		74EE83C31BFE15720009D7C8 /* Sources */ = {
