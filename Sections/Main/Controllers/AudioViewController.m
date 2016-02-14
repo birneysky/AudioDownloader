@@ -12,6 +12,7 @@
 #import "DetailViewController.h"
 #import "AsyncDownloader.h"
 #import "ItemInfo.h"
+#import "CustomSearchController.h"
 
 @interface AudioViewController () <FeedLoaderDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -21,7 +22,7 @@
 
 @property (nonatomic,strong) NSMutableDictionary* processManager;
 
-@property (nonatomic,strong) UISearchController* searchController;
+@property (nonatomic,strong) CustomSearchController* searchController;
 
 @end
 
@@ -44,10 +45,10 @@
     return _processManager;
 }
 
-- (UISearchController*)searchController
+- (CustomSearchController*)searchController
 {
     if (!_searchController) {
-        _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        _searchController = [[CustomSearchController alloc] initWithSearchResultsController:nil];
     }
     return _searchController;
 }
@@ -83,17 +84,19 @@
     self.refreshBtnItem.enabled = YES;
     [self.indicator stopAnimating];
     self.indicator.hidden = YES;
-    for (NSDictionary* dic in array) {
-        ItemInfo* info = [[ItemInfo alloc] init];
-        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        
-        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
-        
-        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
-        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
-        [self.dataSource addObject:info];
-    }
+//    for (NSDictionary* dic in array) {
+//        ItemInfo* info = [[ItemInfo alloc] init];
+//        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        
+//        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+//        
+//        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
+//        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
+//        [self.dataSource addObject:info];
+//    }
+    
+    [self.dataSource addObjectsFromArray:array];
     
     [self.tableView reloadData];
 }
@@ -129,6 +132,18 @@
     cell.progress = item.progress;
 }
 
+-(UIColor*)randomColor
+{
+    switch (arc4random() % 5) {
+        case 0:return [UIColor greenColor];
+        case 1:return [UIColor blueColor];
+        case 2:return [UIColor orangeColor];
+        case 3:return [UIColor redColor];
+        case 4:return [UIColor purpleColor];
+    }
+    return [UIColor blackColor];
+}
+
 
 #pragma mark - *** TableView Data Source ***
 
@@ -144,6 +159,7 @@
     cell.text = info.title;
     cell.detailText = info.keywords;
     cell.progress = info.progress;
+    cell.backgroundColor = [self randomColor];
     return cell;
 }
 

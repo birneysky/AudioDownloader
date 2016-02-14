@@ -8,6 +8,7 @@
 
 #import "FeedLoader.h"
 #import "XMLReader.h"
+#include "ItemInfo.h"
 
 @interface FeedLoader ()
 @property (nonatomic,strong) NSOperationQueue* queue;
@@ -30,7 +31,20 @@
 {
     NSArray* entities = [[[dictinary objectForKey:@"rss"] objectForKey:@"channel"] objectForKey:@"item"];
 
-    return entities;
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+    for (NSDictionary* dic in entities) {
+        ItemInfo* info = [[ItemInfo alloc] init];
+        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        info.keywords = [[[dic objectForKey:@"itunes:keywords"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        
+        info.summary = [[[dic objectForKey:@"itunes:summary"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
+        
+        info.url = [[dic objectForKey:@"enclosure"] objectForKey:@"url"];
+        info.length = [[[dic objectForKey:@"enclosure"] objectForKey:@"length"] floatValue];
+        [array addObject:info];
+    }
+    
+    return [array copy];
 }
 
 // 执行一个同步请求，加载指定url内容

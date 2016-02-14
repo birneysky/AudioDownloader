@@ -10,6 +10,7 @@
 		7407AE8A1C21983900F198EA /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7407AE891C21983900F198EA /* ArrayDataSource.m */; };
 		7407AE901C21AB2400F198EA /* GeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7407AE8F1C21AB2400F198EA /* GeneralCell.m */; };
 		7438B04D1C18661C00337580 /* AsyncDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7438B04C1C18661C00337580 /* AsyncDownloader.m */; };
+		748C10FD1C40BA5B005BC332 /* CustomSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 748C10FC1C40BA5B005BC332 /* CustomSearchController.m */; };
 		74EE83CC1BFE15720009D7C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE83CB1BFE15720009D7C8 /* main.m */; };
 		74EE83CF1BFE15720009D7C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE83CE1BFE15720009D7C8 /* AppDelegate.m */; };
 		74EE83D51BFE15720009D7C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EE83D31BFE15720009D7C8 /* Main.storyboard */; };
@@ -49,6 +50,8 @@
 		7407AE8F1C21AB2400F198EA /* GeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralCell.m; sourceTree = "<group>"; };
 		7438B04B1C18661C00337580 /* AsyncDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncDownloader.h; sourceTree = "<group>"; };
 		7438B04C1C18661C00337580 /* AsyncDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncDownloader.m; sourceTree = "<group>"; };
+		748C10FB1C40BA5B005BC332 /* CustomSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchController.h; sourceTree = "<group>"; };
+		748C10FC1C40BA5B005BC332 /* CustomSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchController.m; sourceTree = "<group>"; };
 		74EE83C71BFE15720009D7C8 /* AudioDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EE83CB1BFE15720009D7C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		74EE83CD1BFE15720009D7C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				74EE840B1BFE21A00009D7C8 /* AudioViewController.m */,
 				74EE84161C01B73D0009D7C8 /* DetailViewController.h */,
 				74EE84171C01B73D0009D7C8 /* DetailViewController.m */,
+				748C10FB1C40BA5B005BC332 /* CustomSearchController.h */,
+				748C10FC1C40BA5B005BC332 /* CustomSearchController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				74EE84061BFE20AE0009D7C8 /* XMLReader.m in Sources */,
 				74EE84141BFE21B80009D7C8 /* FeedLoader.m in Sources */,
 				DB1EC42A1C1A78D100AB7AD8 /* ItemInfo.m in Sources */,
+				748C10FD1C40BA5B005BC332 /* CustomSearchController.m in Sources */,
 				74EE83CC1BFE15720009D7C8 /* main.m in Sources */,
 				7407AE8A1C21983900F198EA /* ArrayDataSource.m in Sources */,
 				74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */,
