@@ -20,7 +20,7 @@
 - (UIVisualEffectView*)effectView
 {
     if (!_effectView) {
-        _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+       // _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         //_effectView.alpha = 0.5;
     }
     return _effectView;
@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.effectView];
+    //[self.view addSubview:self.effectView];
     // Do any additional setup after loading the view.
 }
 

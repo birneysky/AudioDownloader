@@ -159,7 +159,7 @@
     cell.text = info.title;
     cell.detailText = info.keywords;
     cell.progress = info.progress;
-    cell.backgroundColor = [self randomColor];
+    //cell.backgroundColor = [self randomColor];
     return cell;
 }
 

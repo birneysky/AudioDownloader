@@ -313,7 +313,6 @@
 				TargetAttributes = {
 					74EE83C61BFE15720009D7C8 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = M7R5TQ8AQY;
 					};
 					74EE83DF1BFE15720009D7C8 = {
 						CreatedOnToolsVersion = 7.1;
@@ -550,9 +549,9 @@
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yy.H264;
+				PRODUCT_BUNDLE_IDENTIFIER = com.v2tech.commbarEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d2a4ac45-b3d7-483c-9965-b352d55724e7";
+				PROVISIONING_PROFILE = "39fef62a-4fe4-4b0b-a98a-a67306900e60";
 			};
 			name = Debug;
 		};
@@ -565,9 +564,9 @@
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yy.H264;
+				PRODUCT_BUNDLE_IDENTIFIER = com.v2tech.commbarEnt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d2a4ac45-b3d7-483c-9965-b352d55724e7";
+				PROVISIONING_PROFILE = "39fef62a-4fe4-4b0b-a98a-a67306900e60";
 			};
 			name = Release;
 		};
