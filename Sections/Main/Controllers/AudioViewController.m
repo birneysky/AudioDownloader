@@ -13,20 +13,24 @@
 #import "AsyncDownloader.h"
 #import "ItemInfo.h"
 #import "CustomSearchController.h"
+#import "ResumeableDownloader.h"
 
-@interface AudioViewController () <FeedLoaderDelegate>
+@interface AudioViewController () <FeedLoaderDelegate,DownloadItemDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSMutableArray* dataSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshBtnItem;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
-
 @property (nonatomic,strong) NSMutableDictionary* processManager;
-
 @property (nonatomic,strong) CustomSearchController* searchController;
+@property (nonatomic, copy) NSString* archivePath;
+@property (nonatomic, copy) NSString* archiveFileFullPath;
 
 @end
 
 @implementation AudioViewController
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - *** Properties ***
 - (NSMutableArray*)dataSource
@@ -53,22 +57,42 @@
     return _searchController;
 }
 
+- (NSString*)archivePath {
+    if (!_archivePath) {
+        NSString* cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+        _archivePath =[cachePath stringByAppendingPathComponent:NSStringFromClass([self class])];
+    }
+    return _archivePath;
+}
+
+- (NSString*)archiveFileFullPath {
+    if (!_archiveFileFullPath) {
+        _archiveFileFullPath = [self.archivePath stringByAppendingPathComponent:@"ItemInfos.archive"];
+    }
+    return _archiveFileFullPath;
+}
+
 
 #pragma mark - *** Initializers ***
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.indicator.hidden = YES;
+    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchController.searchBar.barTintColor = RGB(217, 217, 217);
   if (@available(iOS 11,*)) {
     self.navigationItem.searchController = self.searchController;
-    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    //self.navigationItem.hidesSearchBarWhenScrolling = NO;
   } else {
     self.tableView.tableHeaderView = self.searchController.searchBar;
   }
 
-
+    [self createDirectoryIfNeed];
     self.definesPresentationContext = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    NSArray<ItemInfo*>* items = [NSKeyedUnarchiver unarchiveObjectWithFile:self.archiveFileFullPath];
+    [items makeObjectsPerformSelector:@selector(resetState)];
+    [self.dataSource addObjectsFromArray:items];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,7 +102,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NB_UPDATEDOWNLOADPROCESS object:nil];
   self.title = @"";
 }
 
@@ -93,6 +117,8 @@
     self.refreshBtnItem.enabled = YES;
     [self.indicator stopAnimating];
     self.indicator.hidden = YES;
+    NSArray<ItemInfo*>* itemInfos = array;
+    [itemInfos makeObjectsPerformSelector:@selector(titleTextTrim)];
 //    for (NSDictionary* dic in array) {
 //        ItemInfo* info = [[ItemInfo alloc] init];
 //        info.title = [[[dic objectForKey:@"title"] objectForKey:@"text"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n "]];
@@ -105,7 +131,7 @@
 //        [self.dataSource addObject:info];
 //    }
     
-    [self.dataSource addObjectsFromArray:array];
+    [self.dataSource addObjectsFromArray:itemInfos];
     
     [self.tableView reloadData];
 }
@@ -113,7 +139,8 @@
 #pragma mark - *** Target Action ***
 - (IBAction)refreshList:(UIBarButtonItem *)sender {
     
-    NSString* feedUrl = @"http://www.justing.com.cn/justpod/justpod_album_ruizhi.xml";//@"http://www.wooozy.cn/wp-content/uploads/podcast/summer/podcast.xml";
+    //NSString* feedUrl = @"http://www.justing.com.cn/justpod/justpod_album_ruizhi.xml";
+    NSString* feedUrl = @"http://www.wooozy.cn/wp-content/uploads/podcast/summer/podcast.xml";
     FeedLoader* feed = [[FeedLoader alloc] init];
     [self.dataSource removeAllObjects];
 
@@ -153,6 +180,20 @@
     return [UIColor blackColor];
 }
 
+- (void)createDirectoryIfNeed {
+    BOOL isDirectory = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isExists = [fileManager fileExistsAtPath:self.archivePath isDirectory:&isDirectory];
+    if (!isExists || !isDirectory) {
+        [fileManager createDirectoryAtPath:self.archivePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+//    NSString* fileStorePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/MyFile"];
+//    if (![fileManager fileExistsAtPath:fileStorePath]) {
+//        [fileManager createDirectoryAtPath:fileStorePath withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+}
+
 
 #pragma mark - *** TableView Data Source ***
 
@@ -166,9 +207,20 @@
     AudioCell* cell = [tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
     ItemInfo* info = self.dataSource[indexPath.row];
     cell.text = info.title;
-    cell.detailText = info.keywords;
+    //cell.detailText = info.keywords;
     cell.progress = info.progress;
-    cell.backgroundColor = [self randomColor];
+    //cell.backgroundColor = [self randomColor];
+    if (info.state == Waiting) {
+        cell.detailText = @"Start Downloaing";
+    } else if (info.state == Running) {
+        cell.detailText = @"Suspend Downloading";
+    } else if(info.state == Suspended) {
+        cell.detailText = @"Resume Downloading";
+    } else if (info.state == Completed) {
+        cell.detailText = @"Dowading finish";
+    } else if (info.state == Failed) {
+        cell.detailText = @"Downloading failed";
+    }
     return cell;
 }
 
@@ -187,14 +239,30 @@
     
     ItemInfo* info = self.dataSource[indexPath.row];
     
+    NSURL* url = [NSURL URLWithString:info.url];
+    DownloadItem* item = [[ResumeableDownloader defaultInstance] itemOf:url];
+    if (!item) {
+        item = [[DownloadItem alloc] initWithURL:url];
+    }
     
-    AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:info.url];
-    [self.processManager setObject:indexPath forKey:downLoader];
+    item.delegate = self;
+    
+    [self.processManager setObject:indexPath forKey:url];
+    
+    if (info.state == Waiting) {
+        [[ResumeableDownloader defaultInstance] downLoad:item];
+    } else if (info.state == Running) {
+        [[ResumeableDownloader defaultInstance] suspend:item];
+    } else if(info.state == Suspended || info.state == Failed) {
+        [[ResumeableDownloader defaultInstance] resume:item];
+    }
+//    AsyncDownloader* downLoader = [[AsyncDownloader alloc] initWithUrl:info.url];
+//    [self.processManager setObject:indexPath forKey:downLoader];
+//
+//
+//    [downLoader start];
     
     
-    [downLoader start];
-    
-
     
 }
 
@@ -213,14 +281,12 @@
     
 }
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     return NO;
 }
 
 #pragma mark - *** notification selector ***
-- (void)updateProcess:(NSNotification*)notification
-{
+- (void)updateProcess:(NSNotification*)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         AsyncDownloader* loader = notification.object;
         NSIndexPath* indexPath = self.processManager[loader];
@@ -233,6 +299,38 @@
     });
     
     
+}
+
+- (void)appWillTerminate:(NSNotification*)notification {
+    [NSKeyedArchiver archiveRootObject:self.dataSource toFile:self.archiveFileFullPath];
+}
+
+#pragma mark - DownloadItemDelegate
+- (void)downItem:(DownloadItem*)item state:(RCDownloadItemState)state {
+    NSIndexPath* indexPath = self.processManager[item.URL];
+    NSLog(@"🤯🤯🤯🤯🤯🤯🤯🤯🤯index row %ld state %ld",(long)indexPath.row,(long)state);
+    ItemInfo* info = (ItemInfo*)self.dataSource[indexPath.row];
+    info.state = (ItemInfoState)state;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+- (void)downItem:(DownloadItem*)item progress:(float)progress {
+    NSIndexPath* indexPath = self.processManager[item.URL];
+    NSLog(@"🤯🤯🤯🤯🤯🤯🤯🤯🤯index row %ld progress %f",(long)indexPath.row,progress);
+    ItemInfo* info = (ItemInfo*)self.dataSource[indexPath.row];
+    info.progress = progress;
+    AudioCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.progress = progress;
+}
+- (void)downItem:(DownloadItem*)item didCompleteWithError:(NSError*)error filePath:(NSString*)path {
+    NSIndexPath* indexPath = self.processManager[item.URL];
+    NSLog(@"🤯🤯🤯🤯🤯🤯🤯🤯🤯index row %ld didCompleteWithError %@, filePath %@",(long)indexPath.row,error,path);
+    ItemInfo* info = (ItemInfo*)self.dataSource[indexPath.row];
+    if (!error) {
+        info.state = Completed;
+    } else {
+        info.state = Failed;
+    }
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, ItemInfoState) {
+    Waiting = 0,
+    Running,
+    Suspended,
+    Canceled,
+    Completed,
+    Failed
+};
+
 @interface ItemInfo : NSObject
 
 @property (nonatomic,copy) NSString* title;
@@ -17,5 +26,9 @@
 @property (nonatomic,copy) NSString* url;
 @property (nonatomic,assign) CGFloat length;
 @property (nonatomic,assign) CGFloat progress;
+@property (nonatomic,assign) ItemInfoState state;
+
+- (void)titleTextTrim;
+- (void)resetState;
 
 @end

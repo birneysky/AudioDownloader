@@ -23,11 +23,13 @@
     self.progressView.frame = CGRectMake(0, rect.size.height - 2, rect.size.width, 2);
 }
 
-
+- (void)prepareForReuse {
+    self.progressView.progress = 0;
+}
 
 - (void)setProgress:(CGFloat)progress
 {
-    self.progressView.progress = progress;
+    [self.progressView setProgress:progress animated:YES];
 }
 
 

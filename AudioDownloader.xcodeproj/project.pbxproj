@@ -10,6 +10,8 @@
 		7407AE8A1C21983900F198EA /* ArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7407AE891C21983900F198EA /* ArrayDataSource.m */; };
 		7407AE901C21AB2400F198EA /* GeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7407AE8F1C21AB2400F198EA /* GeneralCell.m */; };
 		7438B04D1C18661C00337580 /* AsyncDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7438B04C1C18661C00337580 /* AsyncDownloader.m */; };
+		747EA7E820ADBEF20060FABA /* ResumeableDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 747EA7E420ADBEF20060FABA /* ResumeableDownloader.m */; };
+		747EA7E920ADBEF20060FABA /* DownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 747EA7E720ADBEF20060FABA /* DownloadItem.m */; };
 		748C10FD1C40BA5B005BC332 /* CustomSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 748C10FC1C40BA5B005BC332 /* CustomSearchController.m */; };
 		74EE83CC1BFE15720009D7C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE83CB1BFE15720009D7C8 /* main.m */; };
 		74EE83CF1BFE15720009D7C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE83CE1BFE15720009D7C8 /* AppDelegate.m */; };
@@ -51,6 +53,10 @@
 		7407AE8F1C21AB2400F198EA /* GeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralCell.m; sourceTree = "<group>"; };
 		7438B04B1C18661C00337580 /* AsyncDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncDownloader.h; sourceTree = "<group>"; };
 		7438B04C1C18661C00337580 /* AsyncDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncDownloader.m; sourceTree = "<group>"; };
+		747EA7E420ADBEF20060FABA /* ResumeableDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResumeableDownloader.m; sourceTree = "<group>"; };
+		747EA7E520ADBEF20060FABA /* DownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadItem.h; sourceTree = "<group>"; };
+		747EA7E620ADBEF20060FABA /* ResumeableDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResumeableDownloader.h; sourceTree = "<group>"; };
+		747EA7E720ADBEF20060FABA /* DownloadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadItem.m; sourceTree = "<group>"; };
 		748C10FB1C40BA5B005BC332 /* CustomSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchController.h; sourceTree = "<group>"; };
 		748C10FC1C40BA5B005BC332 /* CustomSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchController.m; sourceTree = "<group>"; };
 		74EE83C71BFE15720009D7C8 /* AudioDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +116,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		747EA7E320ADBEF20060FABA /* ResumableDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				747EA7E620ADBEF20060FABA /* ResumeableDownloader.h */,
+				747EA7E420ADBEF20060FABA /* ResumeableDownloader.m */,
+				747EA7E520ADBEF20060FABA /* DownloadItem.h */,
+				747EA7E720ADBEF20060FABA /* DownloadItem.m */,
+			);
+			path = ResumableDownloader;
+			sourceTree = "<group>";
+		};
 		74EE83BE1BFE15720009D7C8 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +194,7 @@
 		74EE84031BFE20AE0009D7C8 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				747EA7E320ADBEF20060FABA /* ResumableDownloader */,
 				74EE84121BFE21B80009D7C8 /* FeedLoader.h */,
 				74EE84131BFE21B80009D7C8 /* FeedLoader.m */,
 				74EE84041BFE20AE0009D7C8 /* XMLReader.h */,
@@ -393,7 +411,9 @@
 				748C10FD1C40BA5B005BC332 /* CustomSearchController.m in Sources */,
 				B2B7D5511F7DE32F00BBFD45 /* SearchTableViewController.m in Sources */,
 				74EE83CC1BFE15720009D7C8 /* main.m in Sources */,
+				747EA7E920ADBEF20060FABA /* DownloadItem.m in Sources */,
 				7407AE8A1C21983900F198EA /* ArrayDataSource.m in Sources */,
+				747EA7E820ADBEF20060FABA /* ResumeableDownloader.m in Sources */,
 				74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
