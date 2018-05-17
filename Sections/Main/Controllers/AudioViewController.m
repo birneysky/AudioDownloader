@@ -60,7 +60,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.indicator.hidden = YES;
     self.searchController.searchBar.barTintColor = RGB(217, 217, 217);
+  if (@available(iOS 11,*)) {
+    self.navigationItem.searchController = self.searchController;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+  } else {
     self.tableView.tableHeaderView = self.searchController.searchBar;
+  }
+
+
+    self.definesPresentationContext = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,6 +79,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+  self.title = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,7 +168,7 @@
     cell.text = info.title;
     cell.detailText = info.keywords;
     cell.progress = info.progress;
-    //cell.backgroundColor = [self randomColor];
+    cell.backgroundColor = [self randomColor];
     return cell;
 }
 

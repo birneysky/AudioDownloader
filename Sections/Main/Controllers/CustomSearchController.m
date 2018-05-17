@@ -7,6 +7,7 @@
 //
 
 #import "CustomSearchController.h"
+#import "SearchTableViewController.h"
 
 @interface CustomSearchController ()
 
@@ -20,7 +21,7 @@
 - (UIVisualEffectView*)effectView
 {
     if (!_effectView) {
-       // _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         //_effectView.alpha = 0.5;
     }
     return _effectView;
@@ -30,9 +31,17 @@
 #pragma mark - *** Initializer ***
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //[self.view addSubview:self.effectView];
+    [self.view addSubview:self.effectView];
+  
+  UIButton* leftButton = [[UIButton alloc] initWithFrame:CGRectMake(26, 100, 80, 44)];
+  [leftButton setTitle:@"朋友圈" forState:UIControlStateNormal];
+  [leftButton addTarget:self action:@selector(touchAction:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:leftButton];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  self.title = @"";
 }
 
 - (void)viewWillLayoutSubviews
@@ -45,6 +54,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - target  Action
+- (void)touchAction:(UIButton*)sender {
+  SearchTableViewController* viewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  [self.presentingViewController.navigationController pushViewController:viewController animated:YES];
+}
 /*
 #pragma mark - Navigation
 

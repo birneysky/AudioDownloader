@@ -23,6 +23,7 @@
 		74EE84111BFE21A00009D7C8 /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE840F1BFE21A00009D7C8 /* AudioCell.m */; };
 		74EE84141BFE21B80009D7C8 /* FeedLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE84131BFE21B80009D7C8 /* FeedLoader.m */; };
 		74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EE84171C01B73D0009D7C8 /* DetailViewController.m */; };
+		B2B7D5511F7DE32F00BBFD45 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7D5501F7DE32F00BBFD45 /* SearchTableViewController.m */; };
 		DB1EC42A1C1A78D100AB7AD8 /* ItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1EC4291C1A78D100AB7AD8 /* ItemInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,8 @@
 		74EE84131BFE21B80009D7C8 /* FeedLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedLoader.m; sourceTree = "<group>"; };
 		74EE84161C01B73D0009D7C8 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		74EE84171C01B73D0009D7C8 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B2B7D54F1F7DE32F00BBFD45 /* SearchTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
+		B2B7D5501F7DE32F00BBFD45 /* SearchTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
 		DB1EC4281C1A78D100AB7AD8 /* ItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInfo.h; sourceTree = "<group>"; };
 		DB1EC4291C1A78D100AB7AD8 /* ItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInfo.m; sourceTree = "<group>"; };
 		DBFB26031C19522400225D61 /* AudioDownloader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioDownloader.pch; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				74EE84171C01B73D0009D7C8 /* DetailViewController.m */,
 				748C10FB1C40BA5B005BC332 /* CustomSearchController.h */,
 				748C10FC1C40BA5B005BC332 /* CustomSearchController.m */,
+				B2B7D54F1F7DE32F00BBFD45 /* SearchTableViewController.h */,
+				B2B7D5501F7DE32F00BBFD45 /* SearchTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -255,7 +260,6 @@
 				74EE83C31BFE15720009D7C8 /* Sources */,
 				74EE83C41BFE15720009D7C8 /* Frameworks */,
 				74EE83C51BFE15720009D7C8 /* Resources */,
-				DB88E0FA1C58A8D800EBDC19 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -313,6 +317,8 @@
 				TargetAttributes = {
 					74EE83C61BFE15720009D7C8 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 6K45GAZW62;
+						ProvisioningStyle = Automatic;
 					};
 					74EE83DF1BFE15720009D7C8 = {
 						CreatedOnToolsVersion = 7.1;
@@ -371,22 +377,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		DB88E0FA1C58A8D800EBDC19 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#echo \"hello world\"\n# app file path\necho \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\necho \"${PROVISONNING_PROFILE}\"\n# project path\necho \"${SRCROOT}\"\n# find app icon path\necho $(find ${SRCROOT} -name \"AppIcon60x60@2x.png\")\n#IFS=$'\\n'\n#PATH=${PATH}:/usr/local/bin\n\n#TARGET_PATH=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n#BASE_IMAGE_PATH=$(find ${SRCROOT} -name \"AppIcon60x60@2x.png\")\n#convert betaRibbon.png -resize 120x120 resizeBetaRibbon.png\n#convert ${BASE_IMAGE_PATH} -fill white -font Times-Bold -pointsize 18 -gravity south -annotate 0 \"hello World\" temp.png\n#composite resizeBetaRibbon.png temp.png ${TARGET_PATH}AppIcon60x60@2x.png\n#rm temp.png\nfunction generateIcon(){\n    BASE_IMAGE_NAME=$1\n    TARGET_PATH=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n    BASE_IMAGE_PATH=$(find ${SRCROOT} -name ${BASE_IMAGE_NAME})\n    WIDTH=$(identify -format %w ${BASE_IMAGE_PATH})\n    convert betaRibbon.png -resize $WIDTHx$WIDTH resizeBetaRibbon.png\n    FONT_SIZE=$(echo \"$WIDTH * .15\" | bc -l)\n    convert ${BASE_IMAGE_PATH} -fill white -font Times-Bold -pointsize ${FONT_SIZE} -gravity south -annotate 0 \"hello World\" temp.png\n    composite resizeBetaRibbon.png temp.png ${TARGET_PATH}$1\n    rm temp.png\n}\ngenerateIcon \"AppIcon60x60@2x.png\"\ngenerateIcon \"AppIcon60x60@3x.png\"\ngenerateIcon \"AppIcon76x76@2x.png\"\ngenerateIcon \"AppIcon76x76.png\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		74EE83C31BFE15720009D7C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -401,6 +391,7 @@
 				74EE84141BFE21B80009D7C8 /* FeedLoader.m in Sources */,
 				DB1EC42A1C1A78D100AB7AD8 /* ItemInfo.m in Sources */,
 				748C10FD1C40BA5B005BC332 /* CustomSearchController.m in Sources */,
+				B2B7D5511F7DE32F00BBFD45 /* SearchTableViewController.m in Sources */,
 				74EE83CC1BFE15720009D7C8 /* main.m in Sources */,
 				7407AE8A1C21983900F198EA /* ArrayDataSource.m in Sources */,
 				74EE84181C01B73D0009D7C8 /* DetailViewController.m in Sources */,
@@ -545,13 +536,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K45GAZW62;
 				GCC_PREFIX_HEADER = AudioDownloader/AudioDownloader.pch;
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.v2tech.commbarEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = RongCloud.tech.CloudChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "39fef62a-4fe4-4b0b-a98a-a67306900e60";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -560,13 +555,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K45GAZW62;
 				GCC_PREFIX_HEADER = AudioDownloader/AudioDownloader.pch;
 				INFOPLIST_FILE = AudioDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.v2tech.commbarEnt;
+				PRODUCT_BUNDLE_IDENTIFIER = RongCloud.tech.CloudChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "39fef62a-4fe4-4b0b-a98a-a67306900e60";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
